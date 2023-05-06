@@ -20,6 +20,8 @@ model Company {
   ticker  String?  @default("")
   cname   String?  @default("")
   features CompanyFeature[]
+  favoritedBy   User? @relation("FavoriteCompanies", fields: [favoritedById], references:[id])
+  favoritedById String?
 }
 
 // companyfeatures table
@@ -40,6 +42,7 @@ model Feature {
   label String? @default("")
   companies CompanyFeature[]
 }
+
 
 // Necessary for Next auth
 model Account {
@@ -76,6 +79,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    favoriteCompanies Company[] @relation("FavoriteCompanies")
 }
 
 model VerificationToken {
